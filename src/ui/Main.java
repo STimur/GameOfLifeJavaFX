@@ -44,7 +44,7 @@ public class Main extends Application {
         int width = (int) (Math.sqrt(n) * 50);
         int height = (int) (Math.sqrt(n) * 50);
         Scene scene = new Scene(root, width, height);
-        scene.setFill(Color.PURPLE);
+        scene.setFill(Color.MEDIUMPURPLE);
 
         primaryStage.setTitle("Game of Life");
         primaryStage.setScene(scene);
