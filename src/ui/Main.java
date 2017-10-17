@@ -8,34 +8,35 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class Main extends Application {
-    World world = new World("......\n.**...\n.**...\n...**.\n...**.\n......");
-    Circle[] circles;
+    World world = new World(".....\n.*.*.\n..**.\n..*..\n.....");
+    Rectangle[] rectangles;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        String str = world.toString().replace("\n","");
+        String str = world.toString().replace("\n", "");
         int n = str.length();
-        circles = new Circle[n];
+        rectangles = new Rectangle[n];
         int g = (int) Math.sqrt(n);
         for (int i = 0; i < n; i++) {
-            circles[i] = new Circle();
-            circles[i].setCenterX(25 + (i % g) * 50);
-            circles[i].setCenterY(25 + (i / g) * 50);
-            circles[i].setRadius(20);
+            rectangles[i] = new Rectangle();
+            rectangles[i].setX(1 + i % g * 50);
+            rectangles[i].setY(1 + i / g * 50);
+            rectangles[i].setHeight(48);
+            rectangles[i].setWidth(48);
             if (str.charAt(i) == '.')
-                circles[i].setFill(Color.BLACK);
+                rectangles[i].setFill(Color.BLACK);
             else
-                circles[i].setFill(Color.WHITE);
+                rectangles[i].setFill(Color.WHITE);
         }
-        Group root = new Group(circles);
+        Group root = new Group(rectangles);
 
         Timeline timeline = new Timeline(new KeyFrame(
-                Duration.millis(500),
+                Duration.millis(200),
                 ae -> doSomething()));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
@@ -43,7 +44,7 @@ public class Main extends Application {
         int width = (int) (Math.sqrt(n) * 50);
         int height = (int) (Math.sqrt(n) * 50);
         Scene scene = new Scene(root, width, height);
-        scene.setFill(Color.MEDIUMPURPLE);
+        scene.setFill(Color.PURPLE);
 
         primaryStage.setTitle("Game of Life");
         primaryStage.setScene(scene);
@@ -51,13 +52,13 @@ public class Main extends Application {
     }
 
     private void doSomething() {
-        String str = world.nextGeneration().toString().replace("\n","");
+        String str = world.nextGeneration().toString().replace("\n", "");
         int n = str.length();
         for (int i = 0; i < n; i++) {
             if (str.charAt(i) == '.')
-                circles[i].setFill(Color.BLACK);
+                rectangles[i].setFill(Color.BLACK);
             else
-                circles[i].setFill(Color.WHITE);
+                rectangles[i].setFill(Color.WHITE);
         }
     }
 
